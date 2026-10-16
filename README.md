@@ -6,6 +6,10 @@ It is for Mac users and developers who want Claude Code, Cursor, or any agent th
 
 > **In one sentence:** a human-in-the-loop Mac cleaner for AI coding agents that classifies every path as SAFE, ASK, or NEVER and only deletes SAFE paths a human has confirmed.
 
+![Demo: verify.sh classifies SAFE/ASK/NEVER, lsof-guarded clean skips an in-use cache, an ASK path is promoted after human "y", before/after space and log](assets/demo.gif)
+
+*Demo on fake data in a sandbox home (`~` = demo user): audit → clean only human-confirmed SAFE rules (lsof skips in-use) → ASK asks first and promotes the rule → before/after + `history/` log. [MP4](https://resume-box.tail6a877d.ts.net/macos-disk-cleanup/macos-disk-cleanup-demo.mp4)*
+
 ## What it does
 - Audits the usual space hogs: `~/Library/Caches`, package-manager caches (npm, pnpm, yarn, pip, uv, Go, Cargo, Homebrew), app updater (ShipIt) caches, Xcode DerivedData, logs, Downloads, Movies, Docker, iOS backups and runaway log files.
 - Classifies every path as **SAFE**, **ASK** or **NEVER** with `scripts/verify.sh` against an ordered rule file (first match wins).
