@@ -1,5 +1,11 @@
 # macOS Disk Cleanup Skill for AI Agents (Claude Code, Cursor)
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-SKILL.md-orange)](https://agentskills.io)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-skill-d97757)](https://code.claude.com/docs/en/skills)
+[![Cursor](https://img.shields.io/badge/Cursor-skill-000000)](https://cursor.com)
+[![macOS](https://img.shields.io/badge/platform-macOS-lightgrey)](#what-it-does)
+
 **macos-disk-cleanup-skill is an AI-agent skill that frees disk space on your Mac safely: it only auto-deletes what you've approved once, and learns from every confirmation.**
 
 It is for Mac users and developers who want Claude Code, Cursor, or any agent that can read a `SKILL.md` and run shell commands to handle mac disk cleanup and macOS storage cleanup (caches, package-manager stores, Xcode DerivedData, logs) without risking personal files.
