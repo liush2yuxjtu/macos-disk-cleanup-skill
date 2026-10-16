@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "macos-disk-cleanup-skill: macOS Disk Cleanup Skill for AI Agents (Claude Code, Cursor)"
+type: software
+authors:
+  - name: "macos-disk-cleanup-skill contributors"
+repository-code: "https://github.com/liush2yuxjtu/macos-disk-cleanup-skill"
+license: MIT
+abstract: "An AI-agent skill for Claude Code, Cursor and other agents that safely frees disk space on macOS: it classifies paths as SAFE, ASK or NEVER, auto-deletes only human-confirmed SAFE paths, and learns from each confirmation."
+keywords: [mac disk cleanup, macOS storage cleanup, AI agent skill, Claude Code, Cursor, mac cleaner]

@@ -1,8 +1,10 @@
-# macos-disk-cleanup-skill
+# macOS Disk Cleanup Skill for AI Agents (Claude Code, Cursor)
 
-**An AI-agent skill that frees disk space on your Mac safely: it only auto-deletes what you've approved once, and learns from every confirmation.**
+**macos-disk-cleanup-skill is an AI-agent skill that frees disk space on your Mac safely: it only auto-deletes what you've approved once, and learns from every confirmation.**
 
-Works with Cursor, Claude Code, and any agent that can read a `SKILL.md` and run shell commands.
+It is for Mac users and developers who want Claude Code, Cursor, or any agent that can read a `SKILL.md` and run shell commands to handle mac disk cleanup and macOS storage cleanup (caches, package-manager stores, Xcode DerivedData, logs) without risking personal files.
+
+> **In one sentence:** a human-in-the-loop Mac cleaner for AI coding agents that classifies every path as SAFE, ASK, or NEVER and only deletes SAFE paths a human has confirmed.
 
 ## What it does
 - Audits the usual space hogs: `~/Library/Caches`, package-manager caches (npm, pnpm, yarn, pip, uv, Go, Cargo, Homebrew), app updater (ShipIt) caches, Xcode DerivedData, logs, Downloads, Movies, Docker, iOS backups and runaway log files.
@@ -13,7 +15,7 @@ Works with Cursor, Claude Code, and any agent that can read a `SKILL.md` and run
 
 ## Install
 ```bash
-git clone https://github.com/<you>/macos-disk-cleanup-skill.git
+git clone https://github.com/liush2yuxjtu/macos-disk-cleanup-skill.git
 cd macos-disk-cleanup-skill
 cp rules.example.json rules.json      # your local, learned rules (git-ignored)
 ```
@@ -48,8 +50,24 @@ Optional: run it from a daily routine that only acts when free space drops below
 - Account-recovery files and personal documents are always kept and asked about.
 - Your learned `rules.json` and `history/` are git-ignored, so nothing personal ends up in your fork.
 
+## FAQ
+**What is macos-disk-cleanup-skill?**
+An agent skill (a `SKILL.md` plus helper scripts) that lets an AI agent such as Claude Code or Cursor audit and clean disk space on macOS using an ordered SAFE / ASK / NEVER rule file.
+
+**Is it safe to let an AI agent clean my Mac?**
+The skill only auto-deletes paths whose rule is `SAFE` and `confirmed_by_human: true`. Unknown paths default to ASK, in-use files are skipped, logs are truncated rather than deleted, and Documents, Desktop, Photos, Mail, Messages, keychains and app databases are never touched.
+
+**What does it clean on macOS?**
+`~/Library/Caches`, npm/pnpm/yarn/pip/uv/Go/Cargo/Homebrew caches, ShipIt updater caches, Xcode DerivedData, logs, Docker, iOS backups, and (always with confirmation) Downloads and Movies.
+
+**Which agents does it work with?**
+Claude Code, Cursor, and any agent that can read a `SKILL.md` and run shell commands.
+
+**How does it learn?**
+When you approve a regenerable class once, the agent sets `confirmed_by_human: true` in your local `rules.json`, so it cleans that class without asking next time.
+
 ## 中文简介
-**让 AI 代理安全地清理 Mac 磁盘：只自动删除你确认过一次的内容，并从每次确认中学习。**
+**macOS 磁盘清理 AI 代理技能（适用于 Claude Code、Cursor）：让 AI 代理安全地清理 Mac 磁盘：只自动删除你确认过一次的内容，并从每次确认中学习。**
 
 - 按 `rules.json` 将路径分为 SAFE（可清理）/ ASK（每次询问）/ NEVER（绝不触碰）。
 - 只有 SAFE 且经人工确认过的规则才会自动清理；未知路径默认询问。
