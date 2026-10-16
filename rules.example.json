@@ -1,0 +1,248 @@
+{
+ "version": 1,
+ "order": "first match wins",
+ "_note": "Example only. Every SAFE rule ships with confirmed_by_human=false; the agent flips it (and sets confirmed_at) only after a human approves that class of path once.",
+ "rules": [
+  {
+   "pattern": "~/Library/Caches/Homebrew/**",
+   "class": "SAFE",
+   "regenerate_command": "brew cleanup -s",
+   "rationale": "Homebrew download cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/.npm/_cacache/**",
+   "class": "SAFE",
+   "regenerate_command": "npm cache clean --force",
+   "rationale": "npm cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/pnpm/store/**",
+   "class": "SAFE",
+   "regenerate_command": "pnpm store prune",
+   "rationale": "pnpm content store (prune keeps referenced)",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/pnpm/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "may contain global pnpm bins",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/.cache/uv/**",
+   "class": "SAFE",
+   "regenerate_command": "uv cache clean",
+   "rationale": "uv cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Caches/pip/**",
+   "class": "SAFE",
+   "regenerate_command": "pip cache purge",
+   "rationale": "pip cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Caches/Yarn/**",
+   "class": "SAFE",
+   "regenerate_command": "yarn cache clean",
+   "rationale": "yarn cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/go/pkg/mod/**",
+   "class": "SAFE",
+   "regenerate_command": "go clean -modcache",
+   "rationale": "Go module cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/.cargo/registry/**",
+   "class": "SAFE",
+   "regenerate_command": "cargo cache -a (or rm registry/cache)",
+   "rationale": "cargo cache",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/.cache/huggingface/**",
+   "class": "SAFE",
+   "regenerate_command": "hf cache delete (or rm ~/.cache/huggingface/hub)",
+   "rationale": "HF model cache; re-downloadable; skip if in use",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Caches/*.ShipIt/**",
+   "class": "SAFE",
+   "regenerate_command": null,
+   "rationale": "Electron updater staging; app re-downloads",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Caches/ms-playwright/**",
+   "class": "SAFE",
+   "regenerate_command": "npx playwright install (to restore)",
+   "rationale": "browser binaries, re-downloadable",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Caches/**",
+   "class": "SAFE",
+   "regenerate_command": null,
+   "rationale": "app caches, regenerable",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Developer/Xcode/DerivedData/**",
+   "class": "SAFE",
+   "regenerate_command": null,
+   "rationale": "build products",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Developer/CoreSimulator/Caches/**",
+   "class": "SAFE",
+   "regenerate_command": "xcrun simctl delete unavailable",
+   "rationale": "sim caches",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Developer/Xcode/iOS DeviceSupport/**",
+   "class": "SAFE",
+   "regenerate_command": null,
+   "rationale": "re-created on device connect",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Developer/Xcode/Archives/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "needed for dSYMs/resubmission",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/.Trash/**",
+   "class": "SAFE",
+   "regenerate_command": "empty Trash in Finder",
+   "rationale": "already trashed",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Logs/**",
+   "class": "SAFE",
+   "regenerate_command": null,
+   "rationale": "logs; only files >24h old",
+   "confirmed_by_human": false,
+   "conditions": {
+    "older_than_hours": 24
+   }
+  },
+  {
+   "pattern": "~/.cache/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "mixed tool caches",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "/private/var/folders/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "system temp; let macOS manage (reboot clears)",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Downloads/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "user files; confirm each time",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Application Support/MobileSync/Backup/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "iOS backups",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Containers/com.docker.docker/**",
+   "class": "ASK",
+   "regenerate_command": "docker system prune",
+   "rationale": "Docker images/volumes",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Containers/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "sandboxed app data",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "**/node_modules",
+   "class": "ASK",
+   "regenerate_command": "rm after confirming project inactive; npm i restores",
+   "rationale": "deps",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Movies/**",
+   "class": "ASK",
+   "regenerate_command": null,
+   "rationale": "media; confirm each time",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Application Support/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "app DBs/settings",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Documents/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "documents",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Desktop/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "user files",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Pictures/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "photos library",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Keychains/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "credentials",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Mail/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "mail",
+   "confirmed_by_human": false
+  },
+  {
+   "pattern": "~/Library/Messages/**",
+   "class": "NEVER",
+   "regenerate_command": null,
+   "rationale": "messages",
+   "confirmed_by_human": false
+  }
+ ]
+}
